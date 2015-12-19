@@ -1,0 +1,497 @@
+pre,
+.highlight {
+  background: #2d2d2d;
+  margin: 0px;
+  padding: 15px 12px;
+  border-style: solid;
+  border-width: 1px 0;
+  overflow: auto;
+  color: #ccc;
+  border-radius: 10px;
+}
+.highlight .gutter pre,
+.gist .gist-file .gist-data .line-numbers {
+  color: #666;
+}
+pre,
+code {
+  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+}
+code {
+  background: #2d2d2d;
+  padding: 0.3em;
+  font-size: 16px;
+  color: #ccc;
+  line-height: 22px;
+}
+pre code {
+  background: none;
+  text-shadow: none;
+  padding: 0;
+}
+.highlight {
+  font-size: 16px;
+}
+.highlight pre {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.highlight table {
+  margin: 0;
+  width: auto;
+}
+.highlight td {
+  border: none;
+  padding: 0;
+}
+.highlight figcaption {
+  color: #999;
+  line-height: 1em;
+  margin-bottom: 1em;
+}
+.highlight figcaption a {
+  float: right;
+}
+.highlight .gutter pre {
+  text-align: right;
+  padding-right: 20px;
+}
+.gist {
+  margin: 0;
+  border-style: solid;
+  border-color: color-border;
+  border-width: 1px 0;
+  background: #2d2d2d;
+  padding: 15px 0 15px 0;
+}
+.gist .gist-file {
+  border: none;
+  font-family: font-mono;
+  margin: 0;
+}
+.gist .gist-file .gist-data {
+  background: none;
+  border: none;
+}
+.gist .gist-file .gist-data .line-numbers {
+  background: none;
+  border: none;
+  padding: 0 20px 0 0;
+}
+.gist .gist-file .gist-data .line-data {
+  padding: 0 !important;
+}
+.gist .gist-file .highlight {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.gist .gist-file .gist-meta {
+  background: #2d2d2d;
+  color: #999;
+  font: 0.85em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  text-shadow: 0 0;
+  padding: 0;
+  margin-top: 1em;
+  margin-left: 0;
+}
+.gist .gist-file .gist-meta a {
+  color: color-link;
+  font-weight: normal;
+}
+.gist .gist-file .gist-meta a:hover {
+  text-decoration: underline;
+}
+pre .comment,
+pre .title {
+  color: #999;
+}
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo {
+  color: #f2777a;
+}
+pre .number,
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant {
+  color: #f99157;
+}
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
+  color: #9c9;
+}
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+  color: #9c9;
+}
+pre .css .hexcolor {
+  color: #6cc;
+}
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+  color: #69c;
+}
+pre .keyword,
+pre .javascript .function {
+  color: #c9c;
+}
+/* RESET */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
+  color: #4d4d4d;
+}
+body {
+  border-top: 5px #fb4f4f solid;
+}
+/* FORMATTING */
+a,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.5s;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #fb4f4f;
+  transition: color 0.2s;
+}
+.wrapper h1,
+.wrapper h2,
+.wrapper h3,
+.wrapper h4,
+.wrapper h5,
+.wrapper h6 {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 20px 0px 5px;
+}
+.wrapper h1 {
+  font-size: 1.6em;
+}
+.wrapper h2 {
+  font-size: 1.2em;
+}
+.wrapper h3 {
+  font-size: 1em;
+}
+article .article-title {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin: 0px 0px 12px;
+}
+article .article-date {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.6em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  vertical-align: bottom;
+  letter-spacing: -0.02em;
+  margin: 0px;
+}
+article .article-body p {
+  margin: 0px 0px 20px;
+  padding: 0px;
+}
+article .article-body a,
+article .article-body a:visited {
+  text-decoration: none;
+  border-bottom: 1px #4d4d4d dotted;
+}
+article .article-body a:hover,
+article .article-body a:active {
+  text-decoration: none;
+  border-bottom: 2px #4d4d4d solid;
+  color: #4d4d4d;
+}
+article .article-body img,
+article .article-body .highlight {
+  margin-left: -40px;
+  max-width: 680px;
+  height: auto;
+  z-index: 9999;
+}
+article .article-body .highlight {
+  transition: all 0.2s;
+  width: 680px;
+  box-sizing: border-box;
+}
+@media (max-width: 950px) {
+  article .article-body img {
+    margin: 0px;
+    max-width: 100%;
+  }
+  article .article-body .highlight {
+    margin: 0px;
+    width: 100%;
+  }
+}
+/* SITE WIDE STRUCTURE */
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0px 20px;
+}
+header {
+  max-width: 910px;
+  margin: 15px auto 25px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0px 20px 0px;
+  position: relative;
+  text-transform: lowercase;
+}
+header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+header .blog-name-short {
+  display: none;
+  text-align: right;
+}
+header ul,
+header li {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+.after-post {
+  border-top: 1px #eee solid;
+  padding: 10px 0px 0px;
+}
+.after-post h3 {
+  margin-top: 0px;
+}
+.border-top {
+  border-top: 5px #fb4f4f solid;
+}
+.blogroll {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blogroll .article-title {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1em;
+  letter-spacing: -0.02em;
+  margin: 0px 0px 5px 5px;
+  vertical-align: baseline;
+}
+.blogroll .article-date {
+  text-align: right;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.6em;
+  line-height: 1em;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0px;
+}
+.blogroll.projects,
+.blog-post-project,
+.blog-post-photo {
+  margin: 0px -10px !important;
+}
+.blogroll.projects .project-thumbnail .article-title,
+.blog-post-project .project-thumbnail .article-title,
+.blog-post-photo .project-thumbnail .article-title {
+  display: inline;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1em;
+  letter-spacing: -0.02em;
+  margin: 0px;
+}
+.project-thumbnail-holder {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0px 10px 20px;
+}
+.project-thumbnail-holder .project-thumbnail {
+  display: block;
+  position: relative;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 120px;
+  padding: 10px;
+  border-radius: 4px;
+}
+.project-thumbnail-holder .project-thumbnail h2 {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  color: #fff;
+  z-index: 20;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.project-thumbnail-holder .project-thumbnail .full-link {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  background-color: rgba(251,79,79,0.5);
+  text-indent: -9999px;
+}
+.project-thumbnail-holder .project-thumbnail .full-link:hover {
+  background-color: rgba(251,79,79,0.8);
+}
+.blogroll.projects.travel .project-thumbnail-holder .project-thumbnail h2,
+.blog-post-photo .project-thumbnail-holder .project-thumbnail h2 {
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+.blogroll.projects.travel .project-thumbnail-holder .project-thumbnail .full-link,
+.blog-post-photo .project-thumbnail-holder .project-thumbnail .full-link {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.2);
+  text-indent: -9999px;
+}
+.blogroll.projects.travel .project-thumbnail-holder .project-thumbnail .full-link:hover,
+.blog-post-photo .project-thumbnail-holder .project-thumbnail .full-link:hover {
+  background-color: rgba(251,79,79,0.5);
+}
+.blog-posts article {
+  margin: 0px 0px 80px;
+}
+.blog-posts article:last-of-type {
+  margin: 0px 0px 40px;
+}
+.blog-pagnation {
+  margin: 0px 0px 40px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  position: relative;
+  text-transform: lowercase;
+}
+footer {
+  height: 100px;
+}
+@media (min-width: 784px) {
+  header .blog-name-holder {
+    position: fixed;
+    right: 50%;
+    pointer-events: none;
+  }
+  header .blog-name,
+  .blog-name-short {
+    margin-right: 325px;
+    pointer-events: all;
+  }
+}
+@media (min-width: 784px) and (max-width: 1030px) {
+  .blog-name {
+    display: none !important;
+  }
+  .blog-name-short {
+    display: block !important;
+  }
+}
+@media (min-width: 424px) and (max-width: 359px) {
+  .blog-name {
+    display: none !important;
+  }
+  .blog-name-short {
+    display: block !important;
+  }
+  header .blog-name,
+  .blog-name-short {
+    margin-right: 0px !important;
+  }
+}
+@media (max-width: 423px) {
+  header .blog-name,
+  .blog-name-short {
+    margin-right: 0px !important;
+  }
+  body {
+    font-size: 18px;
+  }
+  .blog-name-holder {
+    display: block;
+    float: none !important;
+    text-align: center;
+  }
+  .menu {
+    margin-top: 10px;
+    display: block;
+    float: none !important;
+    text-align: center;
+  }
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+.hide {
+  display: none;
+}
+.center {
+  text-align: center !important;
+}

@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="author" content="Sam Schooler">
+
+<meta name="description" content="LibGDX is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there was one issue I had that I really did struggle with; that is text, and bitmap fonts.
+In Objective-C it is fairly simple to write text on the screen, we call the system font, or a font from file, the text we would like to write, and the coordinate on screen. This is very straight forward unlike much of Objective-C. In Java, and with LibGDX, it is not as easy. To do this we need to create a bitmap font, which is not that easy in itself, then define a font from a picture, and a description file. Once we have that, we can define a font in Java:Defining a Bitmap Font in LibGDX12345678910// ...private SpriteBatch batch;private BitmapFont font;// ...@Overridepublic void create() &amp;#123;	batch = new SpriteBatch();	font = new BitmapFont(Gdx.files.internal(&quot;data/schooler.fnt&quot;),Gdx.files.internal(&quot;data/schooler.png&quot;),false);&amp;#125;// ...We also need to define a sprite batch which helps manage drawing efficiently. To draw text in the render method we need to start the sprite batch, then use the font to draw the text. This is where it gets more complex,">
+
+
+<meta property="og:title" content="LibGDX and Bitmap Fonts"/>
+<meta property="og:site_name" content="Sam Schooler"/>
+
+<meta name="description" content="LibGDX is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LibGDX and Bitmap Fonts">
+<meta property="og:url" content="https://sam.ink/blog/2013/libgdx-and-bitmap-fonts/">
+<meta property="og:site_name" content="Sam Schooler">
+<meta property="og:description" content="LibGDX is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there">
+<meta property="og:updated_time" content="2015-12-17T18:04:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LibGDX and Bitmap Fonts">
+<meta name="twitter:description" content="LibGDX is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there">
+<meta name="twitter:creator" content="@samschooler">
+<link rel="publisher" href="https://plus.google.com/u/0/+SamSchooler?rel=author">
+
+<title>LibGDX and Bitmap Fonts | Sam Schooler</title>
+
+<link href="/favicon.png" rel="icon">
+<link rel="alternate" href="/atom.xml" title="Sam Schooler" type="application/atom+xml">
+<link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-32329980-1', 'auto');
+	ga('send', 'pageview');
+
+</script>
+
+
+
+  </head>
+  <body>
+    
+    <header>
+      <div class="blog-name-holder left">
+  <h1 class="blog-name">
+    <a href="/">samschooler.</a>
+  </h1>
+  <h1 class="blog-name-short">
+    <a href="/">sam.</a>
+  </h1>
+</div>
+<ul class="menu right">
+  
+    <li><a href="/about">about.</a></li>
+  
+    <li><a href="/resume">resume.</a></li>
+  
+    <li><a href="mailto:hello@sam.ink">contact.</a></li>
+  
+</ul>
+<div class="clear"></div>
+
+    </header>
+    <div class="wrapper">
+      <section class="blog-posts">
+  <article class="blog-post blog-post-post">
+  <div class="article-header">
+  
+  <div class="article-date">Mar 20 2013</div>
+
+
+  <h2 class="article-title">LibGDX and Bitmap Fonts</h2>
+
+<div class="clear"></div>
+
+</div>
+<div class="article-body ">
+  
+    <p><a href="http://libgdx.badlogicgames.com/" target="_blank" rel="external">LibGDX</a> is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there was one issue I had that I really did struggle with; that is text, and bitmap fonts.</p>
+<p>In Objective-C it is fairly simple to write text on the screen, we call the system font, or a font from file, the text we would like to write, and the coordinate on screen. This is very straight forward unlike much of Objective-C. In Java, and with LibGDX, it is not as easy. To do this we need to create a bitmap font, which is not that easy in itself, then define a font from a picture, and a description file. Once we have that, we can define a font in Java:<br><figure class="highlight java"><figcaption><span>Defining a Bitmap Font in LibGDX</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">private</span> SpriteBatch batch;</span><br><span class="line"><span class="keyword">private</span> BitmapFont font;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	batch = <span class="keyword">new</span> SpriteBatch();</span><br><span class="line">	font = <span class="keyword">new</span> BitmapFont(Gdx.files.internal(<span class="string">"data/schooler.fnt"</span>),Gdx.files.internal(<span class="string">"data/schooler.png"</span>),<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure><br>We also need to define a sprite batch which helps manage drawing efficiently. To draw text in the render method we need to start the sprite batch, then use the font to draw the text. This is where it gets more complex,<a id="more"></a> because we need to get the width and height of the text to find the exact position based on the width and height. This is why I create a new class called TextWrapper to handle all of this:<br><figure class="highlight java"><figcaption><span>TextWrapper.class</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.quaz3l.testgame.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.badlogic.gdx.graphics.g2d.BitmapFont;</span><br><span class="line"><span class="keyword">import</span> com.badlogic.gdx.graphics.g2d.SpriteBatch;</span><br><span class="line"><span class="keyword">import</span> com.badlogic.gdx.math.Vector2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TextWrapper</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String text;</span><br><span class="line">	<span class="keyword">private</span> Vector2 position;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> width;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> height;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TextWrapper</span><span class="params">(String text,Vector2 position)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.text = text;</span><br><span class="line">		<span class="keyword">this</span>.position = position;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(SpriteBatch sp,BitmapFont fnt)</span></span>&#123;</span><br><span class="line">		width=(<span class="keyword">int</span>)fnt.getBounds(text).width; <span class="comment">//Get the width of the text we draw using the current font</span></span><br><span class="line">		height=(<span class="keyword">int</span>)fnt.getBounds(text).height; <span class="comment">//Get the height of the text we draw using the current font</span></span><br><span class="line">		fnt.draw(sp,text,position.x-width/<span class="number">2</span>, <span class="comment">// Get center value in x direction</span></span><br><span class="line">				position.y+height/<span class="number">2</span> <span class="comment">//Get center value in y direction</span></span><br><span class="line">				);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getText</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> text;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setText</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.text = text;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Vector2 <span class="title">getPosition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> position;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPosition</span><span class="params">(Vector2 position)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.position = position;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> width;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> height;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>What this class does, is it handles the text rendering and positioning of a piece of text on the screen without the hassle of handling a spam of variables.</p>
+<p>It is initialized with a String and Vector2 position, which is stored. The draw method is called when the text needs to be rendered. At this point we will supply the font it needs to be drawn with.</p>
+<p>Next, we need to change and add a few things in the create method so we can instate the new class we just made.<br><figure class="highlight java"><figcaption><span>Instating the TextWrapper</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">private</span> SpriteBatch batch;</span><br><span class="line"><span class="keyword">private</span> BitmapFont font;</span><br><span class="line"><span class="keyword">private</span> TextWrapper text;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	batch = <span class="keyword">new</span> SpriteBatch();</span><br><span class="line">	font = <span class="keyword">new</span> BitmapFont(Gdx.files.internal(<span class="string">"data/schooler.fnt"</span>),Gdx.files.internal(<span class="string">"data/schooler.png"</span>),<span class="keyword">false</span>);</span><br><span class="line">	text = <span class="keyword">new</span> TextWrapper(<span class="string">"#YOLO"</span>, <span class="keyword">new</span> Vector2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure><br>Now that we instated the TextWrapper class with a string and the position, we can now render the text with the draw method in the render method.<br><figure class="highlight java"><figcaption><span>Rendering Text With a Bitmap Font</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// Clear the screen</span></span><br><span class="line">	Gdx.graphics.getGL10().glClearColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	Gdx.graphics.getGL10().glClear(GL10.GL_COLOR_BUFFER_BIT);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Begin our batch call</span></span><br><span class="line">	spriteBatch.begin();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Draw the text at the said position with the font defined</span></span><br><span class="line">	text.draw(spriteBatch, font);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Render our batched text</span></span><br><span class="line">	spriteBatch.end();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>This code should run, and will print out “#YOLO” at the point (100, 100) on the screen (NOTE: The origin is in the bottom left of the screen unlike normal game engines).</p>
+<p>I wrote this because I have had trouble finding documentation to write text to the screen in LibGDX, in a few days, I will write a post about detecting touches, and creating buttons with the text.</p>
+
+  
+</div>
+
+</article>
+
+  <div class="after-post">
+  <h3>Sam Schooler</h3>
+</div>
+
+</section>
+
+      <footer></footer>
+
+    </div>
+    <script src="/js/theme.min.js"></script>
+
+  </body>
+</html>
+

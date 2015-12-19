@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="author" content="Sam Schooler">
+
+
+
+<meta property="og:site_name" content="Sam Schooler"/>
+
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sam Schooler">
+<meta property="og:url" content="https://sam.ink/blog/2013/page/2/index.html">
+<meta property="og:site_name" content="Sam Schooler">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sam Schooler">
+<meta name="twitter:description">
+<meta name="twitter:creator" content="@samschooler">
+<link rel="publisher" href="https://plus.google.com/u/0/+SamSchooler?rel=author">
+
+<title>2013 | Sam Schooler</title>
+
+<link href="/favicon.png" rel="icon">
+<link rel="alternate" href="/atom.xml" title="Sam Schooler" type="application/atom+xml">
+<link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-32329980-1', 'auto');
+	ga('send', 'pageview');
+
+</script>
+
+
+
+  </head>
+  <body>
+    
+    <header>
+      <div class="blog-name-holder left">
+  <h1 class="blog-name">
+    <a href="/">samschooler.</a>
+  </h1>
+  <h1 class="blog-name-short">
+    <a href="/">sam.</a>
+  </h1>
+</div>
+<ul class="menu right">
+  
+    <li><a href="/about">about.</a></li>
+  
+    <li><a href="/resume">resume.</a></li>
+  
+    <li><a href="mailto:hello@sam.ink">contact.</a></li>
+  
+</ul>
+<div class="clear"></div>
+
+    </header>
+    <div class="wrapper">
+      <section class="blog-posts">
+  
+    <article class="blog-post blog-post-post">
+  <div class="article-header">
+  
+  <div class="article-date"><a href="/blog/2013/libgdx-and-bitmap-fonts/">Mar 20 2013</a></div>
+
+
+  <h2 class="article-title"><a href="/blog/2013/libgdx-and-bitmap-fonts/">LibGDX and Bitmap Fonts</a></h2>
+
+<div class="clear"></div>
+
+</div>
+<div class="article-body ">
+  
+    <p><a href="http://libgdx.badlogicgames.com/">LibGDX</a> is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there was one issue I had that I really did struggle with; that is text, and bitmap fonts.</p>
+<p>In Objective-C it is fairly simple to write text on the screen, we call the system font, or a font from file, the text we would like to write, and the coordinate on screen. This is very straight forward unlike much of Objective-C. In Java, and with LibGDX, it is not as easy. To do this we need to create a bitmap font, which is not that easy in itself, then define a font from a picture, and a description file. Once we have that, we can define a font in Java:<br><figure class="highlight java"><figcaption><span>Defining a Bitmap Font in LibGDX</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">private</span> SpriteBatch batch;</span><br><span class="line"><span class="keyword">private</span> BitmapFont font;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	batch = <span class="keyword">new</span> SpriteBatch();</span><br><span class="line">	font = <span class="keyword">new</span> BitmapFont(Gdx.files.internal(<span class="string">"data/schooler.fnt"</span>),Gdx.files.internal(<span class="string">"data/schooler.png"</span>),<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure><br>We also need to define a sprite batch which helps manage drawing efficiently. To draw text in the render method we need to start the sprite batch, then use the font to draw the text. This is where it gets more complex,
+    <p class="article-more-link">
+      <a href="/blog/2013/libgdx-and-bitmap-fonts/#more">Read More →</a>
+    </p>
+  
+</div>
+
+</article>
+
+  
+    <article class="blog-post blog-post-post">
+  <div class="article-header">
+  
+  <div class="article-date"><a href="/blog/2013/auto-memory-monitor-for-geektool/">Feb 6 2013</a></div>
+
+
+  <h2 class="article-title"><a href="/blog/2013/auto-memory-monitor-for-geektool/">Auto Memory Monitor for Geektool</a></h2>
+
+<div class="clear"></div>
+
+</div>
+<div class="article-body ">
+  
+    <p><a href="http://projects.tynsoe.org/en/geektool/" target="_blank" rel="external">GeekTool</a> is an awesome tool I use on my desktop everyday. It lets you make amazing interactive desktops from the weather to your CPU usage, a geek is at home. This tool is great, but when it comes to memory usage; it sucks. This is why I made a quick geeklet (an interactive piece for geektool).</p>
+<p>It&nbsp;surprised&nbsp;me that no one has made something similar. What This does is it checks the memory usage of <a href="http://projects.tynsoe.org/en/geektool/" target="_blank" rel="external">GeekTool</a>, and if it is above a certain threshold, it restarts the app with a slight flicker, but nothing more noticeable.</p>
+<h3 id="To_make_this_work"><a href="#To_make_this_work" class="headerlink" title="To make this work"></a>To make this work</h3><ol>
+<li><a href="https://github.com/quaz3l/GeekTools/blob/master/Scripts/GeekToolSelfMonitor.scpt?raw=true" target="_blank" rel="external">Download this script (Will Download)</a></li>
+<li>Change the threshold to what you like</li>
+<li>Move the file to where you like</li>
+<li><a href="https://github.com/quaz3l/GeekTools/raw/master/Geeklets/Monitor.glet?download=true" target="_blank" rel="external">Download this geeklet (Will Download)</a></li>
+<li>Edit the geeklet command to point to your script you downloaded</li>
+<li>Upvote my post on <a href="http://www.macosxtips.co.uk/geeklets/system/auto-memory-monitor-for-geektool/" target="_blank" rel="external">macosxtips here</a></li>
+</ol>
+
+  
+</div>
+
+</article>
+
+  
+    <article class="blog-post blog-post-post">
+  <div class="article-header">
+  
+  <div class="article-date"><a href="/blog/2013/trello-is-an-awesome-task-manager/">Jan 7 2013</a></div>
+
+
+  <h2 class="article-title"><a href="/blog/2013/trello-is-an-awesome-task-manager/">Trello Is an Awesome Task Manager</a></h2>
+
+<div class="clear"></div>
+
+</div>
+<div class="article-body ">
+  
+    <p>I am working on my java skills in a fun way, developing plugin for <a href="http://bukkit.org" target="_blank" rel="external">Bukkit</a>, a popular Minecraft server. I called the plugin <a href="http://dev.bukkit.org/server-mods/project-34294/" target="_blank" rel="external">qQuests</a>, and it adds, as the name suggests, quests to the game. This has become a great undertaking, and I’ve learned a lot from it, like:</p>
+<ul>
+<li>How to collaborate on software without actually talking to your partners in person</li>
+<li>How to manage big projects</li>
+<li>The headaches of not being able to immediately update code like on the web</li>
+<li>How to update code like on the web</li>
+<li>How to program in Java in general</li>
+</ul>
+<p>The second, how I can manage a project, was really aided with a project managing tool called <a href="https://trello.com/quaz3l/recommend" target="_blank" rel="external">Trello</a> (This is a recommend link, and not a referral link; I do not get any personal gain from it). Trello is so amazing and intuitive, it allows me to separate tasks into boards, and create a card for  each task, which can hold comment, tags, a description, and many other properties, but still stays simple. The boards are collaborative, and are dynamically updated. I use Trello because of the simple, and easy to use interface, which makes managing qQuests a breeze.</p>
+<p><a href="https://trello.com/quaz3l/recommend" target="_blank" rel="external">Go try Trello here!</a></p>
+<p>I wrote this post completely unsolicited.</p>
+
+  
+</div>
+
+</article>
+
+  
+</section>
+<section class="blog-pagnation">
+  
+  <section class="pagnation">
+    
+    
+    <a class="blog-next right" href="/blog/2013/">next.</a>
+    
+    <div class="clear"></div>
+  </section>
+  
+</section>
+
+
+      <footer></footer>
+
+    </div>
+    <script src="/js/theme.min.js"></script>
+
+  </body>
+</html>
+
