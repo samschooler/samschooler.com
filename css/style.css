@@ -180,13 +180,13 @@ a,
 a:visited {
   text-decoration: none;
   color: inherit;
-  transition: color 0.5s;
+  transition: color 0.5s, background-color 0.5s;
 }
 a:hover,
 a:active {
   text-decoration: none;
   color: #fb4f4f;
-  transition: color 0.2s;
+  transition: color 0.2s, background-color 0.5s;
 }
 .wrapper h1,
 .wrapper h2,
