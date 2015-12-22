@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sam.ink/projects/rollerbakers/</loc>
+    <lastmod>2015-12-22T21:13:04.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://sam.ink/resume/index.html</loc>
     <lastmod>2015-12-19T04:57:33.000Z</lastmod>
   </url>
@@ -34,11 +39,6 @@
   <url>
     <loc>https://sam.ink//about/</loc>
     <lastmod>2015-12-18T23:03:26.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sam.ink/projects/rollerbakers/</loc>
-    <lastmod>2015-12-18T22:35:53.000Z</lastmod>
   </url>
   
   <url>
@@ -97,12 +97,12 @@
   </url>
   
   <url>
-    <loc>https://sam.ink/blog/2015/adulthood/</loc>
+    <loc>https://sam.ink/blog/2013/preap-english-10-perspective/</loc>
     <lastmod>2015-12-17T18:04:35.000Z</lastmod>
   </url>
   
   <url>
-    <loc>https://sam.ink/blog/2013/preap-english-10-perspective/</loc>
+    <loc>https://sam.ink/blog/2014/a-letter-to-the-person-i-met-at-that-thing-last-weekend/</loc>
     <lastmod>2015-12-17T18:04:35.000Z</lastmod>
   </url>
   
@@ -112,7 +112,7 @@
   </url>
   
   <url>
-    <loc>https://sam.ink/blog/2014/a-letter-to-the-person-i-met-at-that-thing-last-weekend/</loc>
+    <loc>https://sam.ink/blog/2015/adulthood/</loc>
     <lastmod>2015-12-17T18:04:35.000Z</lastmod>
   </url>
   
