@@ -95,7 +95,7 @@ a:hover, a:active {
 
 .some-photos {
   background-color: #ffffff;
-  padding: 120px 10px 150px;
+  padding: 120px 0px 150px;
 }
 .some-photos-holder {
   position: relative;
