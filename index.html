@@ -3,6 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sam Schooler | Fullstack Developer</title>
+  <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="assets/fonts.css" />
   <link rel="stylesheet" type="text/css" href="assets/styles.css" />
 </head>
@@ -11,7 +12,7 @@
 <header class="header">
   <div class="header-content">
     <div class="header-content-holder">
-      <h1>Hey! I'm Sam. I am a <b>founder</b>, <b>product designer</b>, and <b>fullstack and iOS developer</b>.</h1>
+      <h1>Hey! I'm Sam. I'm a <b>founder</b>, <b>product designer</b>, <b>fullstack and iOS developer</b>.</h1>
       <a class="button white outline" href="mailto:hello@sam.ink">Yes, I'm available for hire</a>
     </div>
   </div>
@@ -151,7 +152,7 @@
     target: 'ig-feed',
     resolution: 'standard_resolution',
     limit: 7,
-    template: '<div class="poloroid"><div class="img" style="background-image:url({{image}})"></div></div>'
+    template: '<div class="poloroid"><div class="img" style="background-image:url({{image}})"><span>{{location}}</span></div></div>'
   });
   feed.run();
 </script>

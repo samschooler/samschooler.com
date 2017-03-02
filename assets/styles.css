@@ -110,11 +110,26 @@ a:hover, a:active {
   background-color: #ffffff;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
   padding: 17px 0px;
+  overflow: hidden;
   transition: top ease 1s, left ease 1s, margin ease 1s, transform ease 1s, box-shadow ease 1s;
 }
 .poloroid:hover {
   transition: top ease 1s, left ease 1s, margin ease 1s, transform ease 1s, box-shadow ease 1s;
   box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
+}
+.poloroid span {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Rock Salt', cursive;
+  white-space:nowrap;
+  font-size: 12px;
+  -ms-transform: rotate(5deg); /* IE 9 */
+  -webkit-transform: rotate(5deg); /* Chrome, Safari, Opera */
+  transform: rotate(5deg);
+  color: #999;
 }
 .poloroid .img {
   width: 235px;
@@ -178,7 +193,7 @@ a:hover, a:active {
   transform: rotate(20deg);
 }
 .poloroid:nth-child(4):hover {
-  top: -50px;
+  top: -80px;
   margin-left: -400px;
   -ms-transform: rotate(10deg); /* IE 9 */
   -webkit-transform: rotate(10deg); /* Chrome, Safari, Opera */
