@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'HKGroteskPro';
+  font-style: normal;
+  font-weight: 300;
+  src: url('font/HKGroteskPro-Light.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/HKGroteskPro-Light.woff') format('woff'), /* Pretty Modern Browsers */
+       url('font/HKGroteskPro-Light.ttf')  format('truetype') /* Safari, Android, iOS */
+    ;
+}
+@font-face {
+  font-family: 'HKGroteskPro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/HKGroteskPro-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/HKGroteskPro-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('font/HKGroteskPro-Regular.ttf')  format('truetype') /* Safari, Android, iOS */
+    ;
+}
+@font-face {
+  font-family: 'HKGroteskPro';
+  font-style: normal;
+  font-weight: 500;
+  src: url('font/HKGroteskPro-SemiBold.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/HKGroteskPro-SemiBold.woff') format('woff'), /* Pretty Modern Browsers */
+       url('font/HKGroteskPro-SemiBold.ttf')  format('truetype') /* Safari, Android, iOS */
+    ;
+}
+@font-face {
+  font-family: 'HKGroteskPro';
+  font-style: normal;
+  font-weight: 600;
+  src: url('font/HKGroteskPro-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/HKGroteskPro-Bold.woff') format('woff'), /* Pretty Modern Browsers */
+       url('font/HKGroteskPro-Bold.ttf')  format('truetype') /* Safari, Android, iOS */
+    ;
+}
