@@ -1,34 +1,40 @@
-import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
-import SocialIcon from '@/components/social-icons'
+import Image from 'next/image'
+import CustomLink from './Link'
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
-          <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
-          <SocialIcon kind="github" href={siteMetadata.github} size={6} />
-          <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
-          <SocialIcon kind="youtube" href={siteMetadata.youtube} size={6} />
-          <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
-          <SocialIcon kind="twitter" href={siteMetadata.twitter} size={6} />
-          <SocialIcon kind="x" href={siteMetadata.x} size={6} />
-          <SocialIcon kind="instagram" href={siteMetadata.instagram} size={6} />
-          <SocialIcon kind="threads" href={siteMetadata.threads} size={6} />
-        </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{siteMetadata.author}</div>
-          <div>{` • `}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
-          <Link href="/">{siteMetadata.title}</Link>
-        </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-            Tailwind Nextjs Theme
-          </Link>
-        </div>
+    <footer className="min-h-[25vh] bg-gray-900 py-8 text-center text-white">
+      <div className="mb-4">
+        <Image
+          alt="SS"
+          className="mx-auto mb-4 transition-transform duration-1000 hover:rotate-[720deg]"
+          src="/static/images/logo.svg"
+          width={42}
+          height={42}
+        />
+        <p className="text-sm">
+          Made with{' '}
+          <a
+            className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
+            rel="noreferrer"
+            href="http://www.fileformat.info/info/unicode/char/2764/index.htm"
+          >
+            U+2764
+          </a>{' '}
+          by Sam Schooler in Denver, Colorado.
+        </p>
+      </div>
+      <div className="text-xs text-gray-300">
+        &copy; {`${new Date().getFullYear()}`}{' '}
+        <CustomLink
+          className="border-b-2 border-transparent text-white transition duration-200 hover:border-white"
+          rel="me"
+          href={siteMetadata.siteUrl}
+        >
+          {siteMetadata.author}
+        </CustomLink>
+        .
       </div>
     </footer>
   )

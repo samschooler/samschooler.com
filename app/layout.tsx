@@ -2,20 +2,44 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
+import localFont from 'next/font/local'
 import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
-import Header from '@/components/Header'
-import SectionContainer from '@/components/SectionContainer'
-import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
-const space_grotesk = Space_Grotesk({
-  subsets: ['latin'],
+const hk_grotesk_pro = localFont({
+  src: [
+    {
+      path: '../font/HKGroteskPro-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../font/HKGroteskPro-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../font/HKGroteskPro-SemiBold.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../font/HKGroteskPro-Bold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../font/HKGroteskPro-Black.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-hk-grotesk-pro',
   display: 'swap',
-  variable: '--font-space-grotesk',
+  preload: true,
 })
 
 export const metadata: Metadata = {
@@ -62,30 +86,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${hk_grotesk_pro.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
       <link rel="manifest" href="/static/favicons/site.webmanifest" />
-      <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
-      <meta name="msapplication-TileColor" content="#000000" />
+      <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#fb4f4f" />
+      <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
-          <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
-          <SectionContainer>
-            <div className="flex h-screen flex-col justify-between font-sans">
-              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <Header />
-                <main className="mb-auto">{children}</main>
-              </SearchProvider>
-              <Footer />
-            </div>
-          </SectionContainer>
+          {children}
+          <Footer />
         </ThemeProviders>
       </body>
     </html>

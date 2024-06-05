@@ -49,3 +49,8 @@ input:-webkit-autofill:focus {
   display: inline-block;
   vertical-align: middle;
 }
+
+html,
+body {
+  min-width: 320px;
+}
