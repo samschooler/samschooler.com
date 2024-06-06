@@ -49,7 +49,7 @@ export default function Home({ posts }) {
 
         <div className="mb-4">
           <div className="shadow-none">
-            <div className="prose mx-auto max-w-lg text-justify text-lg">
+            <div className="prose mx-auto max-w-lg text-justify text-lg dark:text-white">
               <MDXLayoutRenderer code={author.body.code} />
             </div>
           </div>
