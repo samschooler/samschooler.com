@@ -19,7 +19,7 @@ export default function Home({ posts }) {
             <abbr title="I'm user and product driven. I solve problems through UX and implementation to make sure a product can cater to a user in an elegant and simple way, no matter the device.">
               <b className="font-semibold">design-focused frontend&nbsp;+&nbsp;mobile engineer</b>
             </abbr>
-            .
+            ..
           </h1>
           <HomeButton title="Let's Work Together" href="mailto:hire@samschooler.com" />
         </div>
