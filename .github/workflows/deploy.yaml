@@ -51,7 +51,12 @@ jobs:
           ssh-keyscan -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Transfer artifact to server
-        run: scp -P ${{ secrets.VPS_PORT }} nextjs-static-files.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -i ~/.ssh/id_rsa -P ${{ secrets.VPS_PORT }} nextjs-static-files.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~
 
       - name: SSH and deploy static files
         uses: appleboy/ssh-action@master
