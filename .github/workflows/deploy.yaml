@@ -45,6 +45,11 @@ jobs:
       - name: Extract artifact
         run: tar -xzf nextjs-static-files.tar.gz
 
+      - name: Add remote server to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
       - name: Transfer artifact to server
         run: scp -P ${{ secrets.VPS_PORT }} nextjs-static-files.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~
 
