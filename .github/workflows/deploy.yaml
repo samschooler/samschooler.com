@@ -45,6 +45,9 @@ jobs:
       - name: Extract artifact
         run: tar -xzf nextjs-static-files.tar.gz
 
+      - name: Transfer artifact to server
+        run: scp -P ${{ secrets.VPS_PORT }} nextjs-static-files.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~
+
       - name: SSH and deploy static files
         uses: appleboy/ssh-action@master
         with:
