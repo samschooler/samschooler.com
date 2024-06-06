@@ -3,10 +3,13 @@ import { HomeButton } from '@/components/home/HomeButton'
 import Link from 'next/link'
 import projectsData from '@/data/projectsData'
 import Card from '@/components/Card'
-import CustomLink from '@/components/Link'
 import ThemeSwitch from '@/components/ThemeSwitch'
+import { allAuthors } from 'contentlayer/generated'
+import { MDXLayoutRenderer } from 'pliny/mdx-components'
 
 export default function Home({ posts }) {
+  const author = allAuthors.find((p) => p.slug === 'default')!
+
   return (
     <div className="bg-white dark:bg-gray-900">
       <header className="flex h-[85vh] items-center justify-center bg-[#fb4f4f] pb-[10vh]">
@@ -46,110 +49,8 @@ export default function Home({ posts }) {
 
         <div className="mb-4">
           <div className="shadow-none">
-            <div className="mx-auto max-w-lg text-justify text-lg">
-              <p>
-                I am a software engineer living in Colorado. Currently, I work for{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  href="https://odeko.com"
-                >
-                  Odeko
-                </a>{' '}
-                building technology to streamline small business. In the past, I've worked for{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://airkit.com"
-                >
-                  Airkit
-                </a>
-                ,{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://thatch.co"
-                >
-                  Thatch Travel
-                </a>
-                ,{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://www.spiredigital.com/"
-                >
-                  Spire Digital
-                </a>{' '}
-                and{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://truebill.com"
-                >
-                  Truebill
-                </a>
-                . I've also founded a (failed) startup called{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://wanderlift.com"
-                >
-                  Wanderlift
-                </a>{' '}
-                to help people get out and explore the outdoors. As well as have built the initial
-                product for{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  rel="noreferrer"
-                  href="https://lynxglobalintelligence.com"
-                >
-                  Lynx Global Intelligence
-                </a>
-                , to better understand the world around us via data.
-              </p>
-              <p>
-                My current passion projects focus on building better relationships between friends,
-                as well as thinking about hyper-local products and games. My other passions include
-                the outdoors, transportation, decentralized systems, and privacy. I like to use
-                rapid dev cycles to design, build, test and deploy unique and delightful
-                experiences.
-              </p>
-              <p>
-                In my free time I rock climb, backcountry ski, hike, bike, travel and{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  href="/projects/rollerbakers"
-                >
-                  deliver cookies on rollerblades
-                </a>
-                .
-              </p>
-              <p>
-                This is my personal site, you can also find me on{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  href="https://twitter.com/samschooler"
-                  rel="me"
-                >
-                  Twitter
-                </a>
-                ,{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  href="https://github.com/samschooler"
-                  rel="me"
-                >
-                  Github
-                </a>{' '}
-                and{' '}
-                <a
-                  className="border-b-2 border-transparent text-[#fb4f4f] transition duration-200 hover:border-[#fb4f4f]"
-                  href="https://instagram.com/samschooler"
-                  rel="me"
-                >
-                  Instagram
-                </a>
-                .
-              </p>
+            <div className="prose mx-auto max-w-lg text-justify text-lg">
+              <MDXLayoutRenderer code={author.body.code} />
             </div>
           </div>
         </div>
@@ -196,12 +97,12 @@ export default function Home({ posts }) {
           description={<p>A generalist with a focus in frontend&nbsp;+&nbsp;mobile.</p>}
         />
 
-        <div className="mb-4 flex flex-wrap justify-center">
+        <div className="m-auto mb-4 flex max-w-5xl flex-wrap justify-center">
           <div className="m-4 w-[300px]">
             <div className="p-4">
               <h3 className="mb-4 text-xl font-medium">Web</h3>
               <ul className="space-y-4 text-lg">
-                <li>React, Jest, Emotion, Redux</li>
+                <li>React, Next.js, Redux, Jest</li>
                 <li>Typescript/Javascript</li>
                 <li>HTML5/CSS3</li>
               </ul>
@@ -212,8 +113,8 @@ export default function Home({ posts }) {
               <h3 className="mb-4 text-xl font-medium">Mobile Apps</h3>
               <ul className="space-y-4 text-lg">
                 <li>React Native</li>
-                <li>Swift</li>
-                <li>Firebase</li>
+                <li>Swift/SwiftUI</li>
+                <li>Supabase/Firebase</li>
               </ul>
             </div>
           </div>
@@ -229,21 +130,21 @@ export default function Home({ posts }) {
           </div>
           <div className="m-4 w-[300px]">
             <div className="p-4 opacity-70">
-              <h3 className="mb-4 text-xl font-medium">Design</h3>
+              <h3 className="mb-4 text-xl font-medium">Backend</h3>
               <ul className="space-y-4 text-lg">
-                <li>Figma + Sketch</li>
-                <li>Photoshop</li>
-                <li>Affinity</li>
+                <li>Node.js/Express</li>
+                <li>Postgres</li>
+                <li>GraphQL</li>
               </ul>
             </div>
           </div>
           <div className="m-4 w-[300px]">
             <div className="p-4 opacity-70">
-              <h3 className="mb-4 text-xl font-medium">Backend</h3>
+              <h3 className="mb-4 text-xl font-medium">Design</h3>
               <ul className="space-y-4 text-lg">
-                <li>Docker</li>
-                <li>Postgres</li>
-                <li>GraphQL</li>
+                <li>Figma</li>
+                <li>Photoshop</li>
+                <li>Affinity</li>
               </ul>
             </div>
           </div>

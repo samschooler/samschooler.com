@@ -54,3 +54,36 @@ html,
 body {
   min-width: 320px;
 }
+
+.prose a {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  color: #fb4f4f;
+  transition: border-color 200ms;
+  text-decoration: none;
+}
+
+.prose a:hover {
+  color: #fb4f4f;
+  border-bottom-color: #fb4f4f;
+  text-decoration: none;
+}
+
+.prose a:focus {
+  color: #fb4f4f;
+  border-bottom-color: #fb4f4f;
+  text-decoration: none;
+}
+
+.prose a:active {
+  color: #fb4f4f;
+  border-bottom-color: #fb4f4f;
+  text-decoration: none;
+}
+
+.prose a:visited {
+  color: #fb4f4f;
+  border-bottom-color: #fb4f4f;
+  text-decoration: none;
+}
