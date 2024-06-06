@@ -67,12 +67,7 @@ module.exports = () => {
     },
     output: 'export',
     images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'picsum.photos',
-        },
-      ],
+      unoptimized: true,
     },
     async headers() {
       return [
