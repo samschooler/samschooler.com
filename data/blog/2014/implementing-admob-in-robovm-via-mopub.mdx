@@ -1,0 +1,555 @@
+---
+title: 'Implementing AdMob in RoboVM via MoPub'
+date: '2014-02-16'
+tags: ['tutorial']
+draft: false
+summary: 'UPDATED November 29th, 2014: Should work with LibGDX 1.X.X RoboVM is an amazing free framework for writing iOS Applications in Java. I built an app with LibGDX, which ties into RoboVM last week. I don'
+---
+
+_UPDATED November 29th, 2014: Should work with LibGDX 1.X.X_
+
+[RoboVM](http://robovm.org) is an amazing free framework for writing iOS Applications in Java. I built an app with LibGDX, which ties into RoboVM last week. I don’t feel that it is worth charging for, so I wanted to make it ad-supported. In order to do this, I needed to implement a native library from MoPub, an ad mediation network. I had a couple of kinks, but I successfully implemented AdMob/MoPub in both iOS and Android, and I want to share how I did it.
+
+If you are only putting ads in an iOS app, only follow the steps labeled [iOS], or if you are doing only an Android app, follow the [Android] tag. Obviously, if you are making an app for both platforms, do everything.
+
+## Creating Your Project
+
+Make sure before you start, to follow the LibGDK Wiki on how to [Create a Project](https://github.com/libgdx/libgdx/wiki/Project-Setup-Gradle). This will get you started with a LibGDX project. Then make sure to [Import your Project Into Eclipse](https://github.com/libgdx/libgdx/wiki/Gradle-and-Eclipse).
+
+## Getting Our Resources
+
+Started out by downloading the [iOS] [RoboVM Bindings](http://libgdx.badlogicgames.com/robovm-ios-bindings/mopub-1.0.0-SNAPSHOT.jar) and the [Android] [Full MoPub SDK](https://github.com/mopub/mopub-android-sdk/archive/master.zip).
+
+RoboVM bindings are basically “bridges” between the native iOS Objective-C and the sudo Objective-C Java RoboVM. This jar implements the Full MoPub iOS SDK, which allows us to get banners natively on iOS without writing a single line of Objective-C.
+
+## Work With Gradle
+
+In order for our project to recognize the MoPub SDK, we need to tell Gradle to include it in our builds.
+
+**[Android]**
+Open the `build.gradle` file in the root directory of your project, find the `project(":android")` section, and add `compile fileTree(dir: 'libs', include: '*.jar')`. It should now look like this:
+
+```gradle
+project(":android") {
+    apply plugin: "android"
+    configurations { natives }
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+        compile fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+```
+
+**[iOS]**
+Next, we need to find the `project(":ios")` section and add `compile fileTree(dir: 'build/libs', include: '*.jar')`. It should now look like this:
+
+```
+project(":ios") {
+    apply plugin: "java"
+    apply plugin: "robovm"
+    configurations { natives }
+    dependencies {
+        compile project(":core")
+        compile "org.robovm:robovm-rt:${roboVMVersion}"
+        compile "org.robovm:robovm-cocoatouch:${roboVMVersion}"
+        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        compile fileTree(dir: 'build/libs', include: '*.jar')
+    }
+}
+```
+
+**[iOS/Android]**
+Save this file. We are done with it. These changes allow Gradle to access the build directories that we placed the MoPub bindings in.
+
+In order to actually have Gradle build, we need to tell it to refresh. To do this, **select all of your projects in Eclipse, right-click, Gradle > Refresh All**.
+
+## Binding the Binding to the iOS Project [iOS]
+
+In order for the ads to work on the device, we need to make sure the compiler knows that it needs to include the SDK. So copy the `mopub-1.0.0-SNAPSHOT.jar` you just downloaded to `ios/build/libs/mopub-1.0.0-SNAPSHOT.jar`. Then we need to add these lines to the `ios/robovm.xml` in order for the compiler to find it.
+
+```
+<!-- Make sure your <frameworks> and <weakFrameworks> tag -->
+<!-- looks exactly like this. -->
+<frameworks>
+  <framework>AddressBook</framework>
+  <framework>AddressBookUI</framework>
+  <framework>AudioToolbox</framework>
+  <framework>AVFoundation</framework>
+  <framework>CoreGraphics</framework>
+  <framework>CoreLocation</framework>
+  <framework>CoreMedia</framework>
+  <framework>CoreTelephony</framework>
+  <framework>EventKit</framework>
+  <framework>EventKitUI</framework>
+  <framework>iAd</framework>
+  <framework>MediaPlayer</framework>
+  <framework>MessageUI</framework>
+  <framework>MobileCoreServices</framework>
+  <framework>QuartzCore</framework>
+  <framework>Security</framework>
+  <framework>SystemConfiguration</framework>
+  <framework>OpenGLES</framework>
+  <framework>OpenAL</framework>
+  <framework>UIKit</framework>
+</frameworks>
+<weakFrameworks>
+  <framework>AdSupport</framework>
+  <framework>PassKit</framework>
+  <framework>Social</framework>
+  <framework>StoreKit</framework>
+  <framework>Twitter</framework>
+</weakFrameworks>
+```
+
+Add this in-between the two config blocks. Your final `robovm.xml` should resemble something like this: [robovm.xml](https://github.com/BlueRiverInteractive/robovm-ios-bindings/blob/master/mopub/robovm.xml).
+
+## Prepare the MoPub SDK for the Android Project [Android]
+
+In order to get ads on Android, we need to import the MoPub SDK.
+
+In Eclipse, go to **File > Import > General > Existing Projects into Workspace**. Next. Click “select archive file”. Browse to where you downloaded the MoPub SDK, and select it. Uncheck the “mopub-sample” project. Click Finish.
+
+We just imported the MoPub SDK into Eclipse, but it is not connected to our project at all. To connect it to our project, we need to create a JAR file to link to Gradle, just like we had with the iOS version.
+
+Right-click the “mopub-sdk” project > Export > Java > JAR File. Next. **Deselect “AndroidManifest.xml” in the right pane**, this will cause errors if you don’t. For the export destination, select “YOURPROJECT/android/libs” Click Finish.
+
+## Make the MoPub SDK Work With the Android Project [Android]
+
+Now that we have generated the MoPub SDK JAR, and placed it in `/android/libs/`, we can now tell the Android project to use it.
+
+In your project, open `/android/AndroidManifest.xml`.
+
+In the _manifest_ tag, add these lines:
+
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+If you don’t want to have invasive permissions, you can remove `ACCESS_COARSE_LOCATION`; however, you will have slightly fewer earnings.
+
+In the _application_ tag, add these lines:
+
+```
+<activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation"/>
+<activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation"/>
+<activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation"/>
+<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation"/>
+<activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+<activity android:name="com.millennialmedia.android.MMActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:configChanges="keyboardHidden|orientation|keyboard" />
+<activity android:name="com.millennialmedia.android.VideoPlayer" android:configChanges="keyboardHidden|orientation|keyboard" />
+```
+
+The MoPub SDK requires some extra permissions in order to work. It also adds a couple of extra Activities, which allow the SDK to display ads.
+
+## Implementing Banners on iOS [iOS]
+
+To implement the MoPub banners, we need to load an ad from MoPub when the application finishes launching. I only implement banner ads/leaderboard ads; however, if you want to implement interstitials, you can have a look at [the sample code](https://github.com/BlueRiverInteractive/robovm-ios-bindings/blob/master/mopub/src/org/robovm/bindings/mopub/sample/Sample.java).
+
+```
+IOSLauncher.java
+
+/* public class IOSLauncher extends IOSApplication.Delegate */
+
+private static final String BANNER_AD_UNIT_ID = "BANNER SIZE iOS ID";
+private static final String LEADERBOARD_AD_UNIT_ID = "LEADERBOARD SIZE iOS ID";
+private static CGSize AD_SIZE;
+private static String AD_ID;
+private boolean adLoaded = false;
+private UIViewController rootViewController;
+private MPAdViewController adViewController;
+private MPAdView banner;
+
+/* protected IOSApplication createApplication() */
+
+public boolean didFinishLaunching(UIApplication application, NSDictionary launchOptions) {
+      super.didFinishLaunching(application, launchOptions);
+  if(UIScreen.getMainScreen().getBounds().size().width() >= 728) {
+    System.out.println("Set as Leaderboard!");
+    AD_SIZE = MPConstants.MOPUB_LEADERBOARD_SIZE;
+    AD_ID = LEADERBOARD_AD_UNIT_ID;
+  } else {
+    System.out.println("Set as Banner!");
+    AD_SIZE = MPConstants.MOPUB_BANNER_SIZE;
+    AD_ID = BANNER_AD_UNIT_ID;
+  }
+
+  // We need a view controller to see ads.
+  //rootViewController = new UIViewController();
+  // If you are already using a UIWindow with a root view controller, get the root view controller (f.e. LibGDX):
+  rootViewController = application.getKeyWindow().getRootViewController();
+
+  // Create a MoPub ad. In this case a banner, but you can make it any size you want.
+  banner = new MPAdView(AD_ID, AD_SIZE);
+  // Let's calculate our banner size. We need to do this because the resolution of a retina and normal device is different.
+  float bannerWidth = UIScreen.getMainScreen().getBounds().size().width();
+  float bannerHeight = bannerWidth / AD_SIZE.width() * AD_SIZE.height();
+
+  // Let's set the frame (bounds) of our banner view. Remember on iOS view coordinates have their origin top-left.
+  // Position banner on the top.
+  banner.setFrame(new CGRect((UIScreen.getMainScreen().getBounds().size().width()/2)-AD_SIZE.width()/2, 0, bannerWidth, bannerHeight));
+  // Position banner on the bottom.
+  // banner.setFrame(new CGRect(0, UIScreen.getMainScreen().getBounds().size().height() - bannerHeight, bannerWidth, bannerHeight));
+  // Let's color the background for testing, so we can see if it is positioned correctly, even if no ad is loaded yet.
+  //banner.setBackgroundColor(new UIColor(1, 0, 0, 1)); // Remove this after testing.
+
+  // We use our custom ad view controller to notify for orientation changes.
+  adViewController = new MPAdViewController(banner);
+
+  // The delegate for the banner. It is required to override getViewController() to get ads.
+  MPAdViewDelegate bannerDelegate = new MPAdViewDelegate.Adapter() {
+    @Override
+    public UIViewController getViewController() {
+      return adViewController;
+    }
+  };
+  banner.setDelegate(bannerDelegate);
+  // Add banner to our view controller.
+  adViewController.getView().addSubview(banner);
+
+  // We add the ad view controller to our root view controller.
+  rootViewController.addChildViewController(adViewController);
+  rootViewController.getView().addSubview(adViewController.getView());
+
+  if(!adLoaded) {
+    banner.loadAd();
+    adLoaded = true;
+  }
+
+  // Create a standard UIWindow at screen size, add the view controller and show it.
+  application.getKeyWindow().setRootViewController(rootViewController);
+  application.getKeyWindow().addSubview(rootViewController.getView());
+  application.getKeyWindow().makeKeyAndVisible();
+  return false;
+}
+```
+
+Your ad should work now, or at least show the demo ad from MoPub. If it does not, or crashes on click, try this with a clean project.
+
+## Implementing Banners on Android [Android]
+
+In order to serve ads on Android, we need to completely re-work the “AndroidLauncher.java” for that reason, please back it up.
+
+Open “/android/AndroidLauncher.java” in Eclipse, and make it look like this. Make sure to rename “MyExampleGame” on line 17:
+
+```
+AndroidLauncher.java
+
+public class AndroidLauncher extends AndroidApplication {
+  MoPubView mAdView;
+  boolean adLoaded = false;
+  boolean adShown = false;
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    RelativeLayout layout = new RelativeLayout(this);
+
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
+    MyExampleGame game = new MyExampleGame();
+
+    View gameView = initializeForView(game, true);
+
+    layout.addView(gameView);
+
+    mAdView = new MoPubView(this);
+    mAdView.setAdUnitId("00000000000000000000000000000"); // Your MoPub Ad Unit ID
+
+    RelativeLayout.LayoutParams adParams =
+        new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT);
+    adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+    adParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+    layout.addView(mAdView, adParams);
+
+    setContentView(layout);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+  }
+
+  @Override
+  public void onDestroy() {
+    mAdView.destroy();
+    super.onDestroy();
+  }
+}
+```
+
+Your ad should work now, or at least show the demo ad from MoPub. If it does not, or crashes on click, try this with a clean project.
+
+## Setting Up MoPub to Serve Ads
+
+In order to serve AdMob ads, we need to connect AdMob with MoPub. Login to [MoPub](https://app.mopub.com/account/login/?next=/dashboard/), and navigate to [Networks](https://app.mopub.com/networks/v2/). Click “Add Network”, and choose [AdMob](https://app.mopub.com/networks/v2/#networks/admob_native). Login via OAuth, and accept the permissions. AdMob should now be connected. If it's not, try OAuth in a different browser. Make a banner and a leaderboard ad in MoPub for your app. Then create one banner on AdMob. Copy the Publisher ID for that banner into both Publisher ID fields for both the leaderboard and the banner (the IDs should look like this: “ca-app-pub-0000000000000000000/000000000”).
+
+Now navigate to [Orders](https://app.mopub.com/advertise/orders/), and Archive all “MoPub Demo Orders”. After a few hours, AdMob Ads should start appearing.
+
+## (Optional) Show/Hide Ads At Specific Times
+
+In order to show/hide ads based on the current state of the application, we need to define two methods: `showAd` and `hideAd`. They do what their names say.
+
+To implement them in [iOS]:
+
+```
+IOSLauncher.java
+
+// Ads
+public void showAd() {
+  System.out.println("Showing Ad!");
+  if(!adLoaded) {
+    banner.loadAd();
+    adLoaded = true;
+  }
+
+  float bannerWidth = UIScreen.getMainScreen().getBounds().size().width();
+  float bannerHeight = bannerWidth / AD_SIZE.width() * AD_SIZE.height();
+
+  // Let's set the frame (bounds) of our banner view. Remember on iOS view coordinates have their origin top-left.
+  // Position banner on the top.
+  banner.setFrame(new CGRect((UIScreen.getMainScreen().getBounds().size().width()/2)-AD_SIZE.width()/2, 0, bannerWidth, bannerHeight));
+}
+
+public void hideAd() {
+  System.out.println("Hiding Ad!");
+
+  float bannerWidth = UIScreen.getMainScreen().getBounds().size().width();
+  float bannerHeight = bannerWidth / AD_SIZE.width() * AD_SIZE.height();
+
+  // Let's set the frame (bounds) of our banner view. Remember on iOS view coordinates have their origin top-left.
+  // Position banner above the top.
+  banner.setFrame(new CGRect(0, -bannerHeight, bannerWidth, bannerHeight));
+}
+```
+
+And in [Android]:
+
+```
+AndroidLauncher.java
+
+// Ads
+public void showAd() {
+  runOnUiThread(new Runnable() {
+    @Override
+    public void run() {
+      if(!adLoaded) {
+        System.out.println("Ad Loaded!");
+        mAdView.loadAd();
+        adLoaded = true;
+      }
+      if(!adShown) {
+        System.out.println("Ad Show!");
+        mAdView.setVisibility(View.VISIBLE);
+        adShown = true;
+      }
+    }
+  });
+}
+
+public void hideAd() {
+  if(adShown) {
+    runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        mAdView.setVisibility(View.GONE);
+        System.out.println("Ad Hide!");
+        adShown = false;
+      }
+    });
+  }
+}
+```
+
+We will place the ad above the top of the screen for safekeeping. We will not dispose of that ad because ads take a long time to load, and we don’t want to try and load an ad every time we show an ad.
+
+Alright, so now that we have those methods, we need to call them. If you only have a RoboVM only app, it is pretty straightforward; just call the methods when you want to do the respective command. If, however, you have a LibGDX app like me, you will need to have a little more complex system.
+
+## (Optional) Creating Listeners For LibGDX Applications
+
+In order for the core project to communicate with the RoboVM project, the RoboVM project must contact it before it can act. We do this with events and listeners. First, we create a `Listener.java` interface in the core LibGDX project which will be inherited by the listeners in the RoboVM project.
+
+```
+Listener.java
+
+public interface Listener {
+  public abstract void call();
+  public abstract ListenerType type();
+}
+```
+
+Then we need to create a manager to control and keep track of all the listeners in the core project. We also need listener types that can be registered. This is the `ListenerType` enum.
+
+```
+ListenerManager.java
+
+public class ListenerManager {
+  ArrayList<Listener> listeners;
+  public ListenerManager() {
+    listeners = new ArrayList<Listener>();
+  }
+
+  public void add(Listener l) {
+    if(listeners == null) {
+      listeners = new ArrayList<Listener>();
+    }
+    listeners.add(l);
+    System.out.println("Listener Added!");
+  }
+
+  public void call(ListenerType type) {
+    for(Listener l : listeners) {
+      if(l.type() == type) {
+        l.call();
+      }
+    }
+  }
+
+  public enum ListenerType {
+    SHOWAD, HIDEAD
+  }
+}
+```
+
+Once these files are created, we can go back to our RoboVM project which can now use the `Listener` class. We will create two files `ShowAdListener.java` and `HideAdListener.java`, which will be triggered when the core project calls the proper methods.
+
+```
+ShowAdListener.java
+
+public class ShowAdListener implements com.example.Listener {
+  IOSLauncher base;
+  @Override
+  public void call() {
+    this.base.showAd();
+  }
+
+  public void setBase(RobovmLauncher base) {
+    this.base = base;
+  }
+
+  @Override
+  public ListenerType type() {
+    return ListenerType.SHOWAD;
+  }
+}
+```
+
+```
+HideAdListener.java
+
+public class HideAdListener implements com.example.Listener {
+  RobovmLauncher base;
+  @Override
+  public void call() {
+    this.base.hideAd();
+  }
+
+  public void setBase(RobovmLauncher base) {
+    this.base = base;
+  }
+
+  @Override
+  public ListenerType type() {
+    return ListenerType.HIDEAD;
+  }
+}
+```
+
+You need to change the implementation to the path of the `Listener.java` you created. Now we need to create an instance of each listener, and register them with the `ListenerManager`. Go to your `RobovmLauncher`, and modify the `createApplication()` method to look like this so the Game has a chance to get the listeners registered. Make sure to rename “MyExampleGame” to your main game class.
+
+```
+IOSLauncher.java
+
+@Override
+protected IOSApplication createApplication() {
+  IOSApplicationConfiguration config = new IOSApplicationConfiguration();
+  config.orientationLandscape = true;
+  config.orientationPortrait = false;
+
+  game = new MyExampleGame();
+
+  ShowAdListener show = new ShowAdListener();
+  HideAdListener hide = new HideAdListener();
+
+  show.setBase(this);
+  hide.setBase(this);
+
+  game.addListener(show);
+  game.addListener(hide);
+
+  return new IOSApplication(game, config);
+}
+```
+
+And do the same thing on [Android]. Between `MyExampleGame game = new MyExampleGame();` and `View gameView = initializeForView(game, true);` put this extra code:
+
+```
+AndroidLauncher.java
+
+// MyExampleGame game = new MyExampleGame();
+
+ShowAdListener show = new ShowAdListener();
+HideAdListener hide = new HideAdListener();
+
+show.setBase(this);
+hide.setBase(this);
+
+game.addListener(show);
+game.addListener(hide);
+
+// View gameView = initializeForView(game, true);
+```
+
+Now that the listeners are set up, we can start showing/hiding ads! Go back to your core project, and find a place where you want to show the ad (Game Over Screen, Settings, etc.), and call the event from the `ListenerManager`.
+
+```
+GameScreen.java
+
+/* public void gameOver() { */
+listenerManager.call(ListenerType.SHOWAD);
+/* } */
+```
+
+and a place to hide the ad (when the game starts, main menu, etc.)
+
+```
+GameScreen.java
+
+/* public void newGame() { */
+listenerManager.call(ListenerType.HIDEAD);
+/* } */
+```
+
+Also, make sure to create an instance of the `ListenerManager`, and add the `addListener()` method to your main game class before you try to call an event.
+
+```
+MyExampleGame.java
+
+public static ListenerManager listenerManager;
+/* public MyExampleGame() { */
+listenerManager = new ListenerManager();
+/* } */
+public void addListener(Listener l) {
+  listenerManager.add(l);
+}
+```
+
+Cool! Now you should have AdMob ads running in your application, and the ability to show/hide the ad! If the demo ads are still showing, give it 24 hours.

@@ -1,0 +1,125 @@
+---
+title: 'LibGDX and Bitmap Fonts'
+date: '2013-03-20'
+tags: ['tutorial']
+draft: false
+summary: 'This post is written for Libgdx in 2013. It may not work anymore! LibGDX is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, an'
+---
+
+**This post is written for Libgdx in 2013. It may not work anymore!**
+
+[LibGDX](http://libgdx.badlogicgames.com/) is an amazing tool to develop mobile applications cross-platform. I have been developing a mobile game for Android, and iOS, and it has worked very well so far despite some bumps. However there was one issue I had that I really did struggle with; that is text, and bitmap fonts.
+
+In Objective-C it is fairly simple to write text on the screen, we call the system font, or a font from file, the text we would like to write, and the coordinate on screen. This is very straightforward unlike much of Objective-C. In Java, and with LibGDX, it is not as easy. To do this we need to create a bitmap font, which is not that easy in itself, then define a font from a picture, and a description file. Once we have that, we can define a font in Java:
+
+```java
+// ...
+private SpriteBatch batch;
+private BitmapFont font;
+// ...
+@Override
+public void create() {
+    batch = new SpriteBatch();
+    font = new BitmapFont(Gdx.files.internal("data/schooler.fnt"), Gdx.files.internal("data/schooler.png"), false);
+}
+// ...
+```
+
+We also need to define a sprite batch which helps manage drawing efficiently. To draw text in the render method we need to start the sprite batch, then use the font to draw the text. This is where it gets more complex, because we need to get the width and height of the text to find the exact position based on the width and height. This is why I create a new class called TextWrapper to handle all of this:
+
+```java
+package me.quaz3l.testgame.util;
+
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+
+public class TextWrapper {
+    private String text;
+    private Vector2 position;
+    private int width;
+    private int height;
+
+    public TextWrapper(String text, Vector2 position) {
+        this.text = text;
+        this.position = position;
+    }
+
+    public void draw(SpriteBatch sp, BitmapFont fnt) {
+        width = (int) fnt.getBounds(text).width; // Get the width of the text we draw using the current font
+        height = (int) fnt.getBounds(text).height; // Get the height of the text we draw using the current font
+        fnt.draw(sp, text, position.x - width / 2, // Get center value in x direction
+                position.y + height / 2 // Get center value in y direction
+        );
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+}
+```
+
+What this class does, is it handles the text rendering and positioning of a piece of text on the screen without the hassle of handling a spam of variables.
+
+It is initialized with a String and Vector2 position, which is stored. The draw method is called when the text needs to be rendered. At this point we will supply the font it needs to be drawn with.
+
+Next, we need to change and add a few things in the create method so we can instate the new class we just made.
+
+```java
+// ...
+private SpriteBatch batch;
+private BitmapFont font;
+private TextWrapper text;
+// ...
+@Override
+public void create() {
+    batch = new SpriteBatch();
+    font = new BitmapFont(Gdx.files.internal("data/schooler.fnt"), Gdx.files.internal("data/schooler.png"), false);
+    text = new TextWrapper("Hello World", new Vector2(100, 100));
+}
+// ...
+```
+
+Now that we instated the TextWrapper class with a string and the position, we can now render the text with the draw method in the render method.
+
+```java
+@Override
+public void render() {
+    // Clear the screen
+    Gdx.graphics.getGL10().glClearColor(0, 0, 0, 0);
+    Gdx.graphics.getGL10().glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+    // Begin our batch call
+    spriteBatch.begin();
+
+    // Draw the text at the said position with the font defined
+    text.draw(spriteBatch, font);
+
+    // Render our batched text
+    spriteBatch.end();
+}
+```
+
+This code should run, and will print out “Hello World” at the point (100, 100) on the screen (NOTE: The origin is in the bottom left of the screen unlike normal game engines).
+
+I wrote this because I have had trouble finding documentation to write text to the screen in LibGDX, in a few days, I will write a post about detecting touches, and creating buttons with the text.

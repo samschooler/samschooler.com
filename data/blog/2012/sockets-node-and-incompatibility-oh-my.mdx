@@ -1,0 +1,13 @@
+---
+title: 'Sockets, Node and Incompatibility Oh My!'
+date: '2012-10-11'
+tags: ['project']
+draft: false
+summary: 'I hope this system works, if not I am going to have to redo it all again.'
+---
+
+It has been a week since I started using [PhoneGap](http://phonegap.org) to make my native app with open web standards, and I have run into some major trouble. I originally used Ajax to poll my server for updates every once in a while, but this approach does not work when the app is in the background, off, uses too much data to poll and get no updates, and there is too much latency. Then I moved on to [socket.io](http://socket.io), which would solve the latency issue and the data issue, but it will not run in the background, and [AppFog](http://appfog.com) does not have support for websockets currently.
+
+I have now tried to fix this by making small native plugins for my app, so it can receive push notifications, and socket.io to receive websocket connections through JavaScript, when the app is in the foreground.
+
+I hope this system works, if not I am going to have to redo it all again.
