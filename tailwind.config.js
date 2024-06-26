@@ -22,7 +22,7 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-hk-grotesk-pro)', ...fontFamily.sans],
+        sans: ['var(--font-hk-grotesk)', ...fontFamily.sans],
       },
       colors: {
         primary: colors.gray,

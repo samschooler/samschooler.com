@@ -2,44 +2,15 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import localFont from 'next/font/local'
-import { Space_Grotesk } from 'next/font/google'
+import { Hanken_Grotesk } from 'next/font/google'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import Footer from '@/components/Footer'
 
-const hk_grotesk_pro = localFont({
-  src: [
-    {
-      path: '../font/HKGroteskPro-Regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../font/HKGroteskPro-Light.woff2',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../font/HKGroteskPro-SemiBold.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../font/HKGroteskPro-Bold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../font/HKGroteskPro-Black.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-hk-grotesk-pro',
-  display: 'swap',
-  preload: true,
+const hk_Grotesk = Hanken_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-hk-grotesk',
 })
 
 export const metadata: Metadata = {
@@ -86,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${hk_grotesk_pro.variable} scroll-smooth`}
+      className={`${hk_Grotesk.className} scroll-smooth`}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
