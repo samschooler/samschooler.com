@@ -1,0 +1,16 @@
+.container {
+  background-color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  color: #000;
+}
+
+.storyContainer {
+  position: relative;
+  z-index: 40;
+}
+
+.spacer {
+  height: 20vh;
+}

@@ -10,6 +10,7 @@ import type { Authors, Blog } from 'contentlayer/generated'
 import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
+import PostNew from '@/layouts/PostNew'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
@@ -17,6 +18,7 @@ import { notFound } from 'next/navigation'
 const defaultLayout = 'PostLayout'
 const layouts = {
   PostSimple,
+  PostNew,
   PostLayout,
   PostBanner,
 }

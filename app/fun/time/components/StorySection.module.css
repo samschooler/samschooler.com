@@ -1,0 +1,28 @@
+.storySection {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10vh 0;
+  position: relative;
+}
+
+.imageContainer {
+  min-height: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  perspective: 1000px;
+}
+
+.image {
+  height: auto;
+  max-height: 60vh; /* Don't overflow viewport height */
+  object-fit: contain;
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+}

@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+  font-family: var(--font-xcicero);
+  font-weight: normal;
+  color: #000;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.postItContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postIt {
+  width: 350px;
+  height: 350px;
+  background-image: url('/static/helpers/postin.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  box-sizing: border-box;
+  z-index: 1; /* Default, overridden in JS */
+}
+
+.postItContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(20deg);
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #000;
+  font-family: var(--font-aujournuit);
+  text-align: center;
+  margin: 20px;
+}

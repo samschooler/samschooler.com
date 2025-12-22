@@ -4,7 +4,7 @@ import 'remark-github-blockquote-alert/alert.css'
 
 import { Hanken_Grotesk } from 'next/font/google'
 import siteMetadata from '@/data/siteMetadata'
-import { ThemeProviders } from './theme-providers'
+import { ThemeProviders } from '../theme-providers'
 import { Metadata } from 'next'
 import Footer from '@/components/Footer'
 
