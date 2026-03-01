@@ -18,10 +18,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build Next.js project
-        run: yarn build
+        run: npm run build
 
       - name: Archive static files
         run: tar -czf nextjs-static-files.tar.gz -C out .
