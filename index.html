@@ -109,6 +109,7 @@ header h1 em {
 .card:nth-child(1) { animation-delay: 0.25s; }
 .card:nth-child(2) { animation-delay: 0.4s; }
 .card:nth-child(3) { animation-delay: 0.55s; }
+.card:nth-child(4) { animation-delay: 0.7s; }
 
 .card:hover {
   transform: translateY(-3px);
@@ -159,6 +160,30 @@ header h1 em {
 .card-arrow svg {
   width: 14px;
   height: 14px;
+}
+
+/* ─── STATUS TAGS ─── */
+.tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.tag--prod {
+  background: rgba(34,197,94,0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.2);
+}
+
+.tag--dev {
+  background: rgba(161,161,170,0.08);
+  color: #71717a;
+  border: 1px solid rgba(161,161,170,0.15);
 }
 
 /* ─── LITTLE AGENTS ─── */
@@ -349,11 +374,79 @@ header h1 em {
   box-shadow: 0 8px 40px rgba(251,191,36,0.05);
 }
 
+/* ─── MAP IN BIO ─── */
+.card--map {
+  background: linear-gradient(135deg, #0e1016, #101418);
+  border: 1px solid #1e2638;
+  font-family: var(--nunito);
+}
+
+.card--map::before {
+  content: '';
+  position: absolute;
+  bottom: -25%;
+  right: -15%;
+  width: 350px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99,102,241,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.card--map .card-name {
+  color: #818cf8;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.card--map .card-title {
+  color: #f0f0f4;
+  font-family: var(--nunito);
+  font-weight: 700;
+}
+
+.card--map .card-desc {
+  color: #7e82a0;
+  font-family: var(--nunito);
+}
+
+.card--map .card-arrow {
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+}
+
+.card--map .card-arrow svg {
+  stroke: #818cf8;
+}
+
+.card--map:hover {
+  border-color: #818cf830;
+  box-shadow: 0 8px 40px rgba(99,102,241,0.06);
+}
+
+/* Map pin decoration */
+.card--map-pin {
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: #52527a;
+  border-top: 1px solid #1e2638;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card--map-pin svg {
+  width: 14px;
+  height: 14px;
+  stroke: #818cf8;
+  flex-shrink: 0;
+}
+
 /* ─── FOOTER ─── */
 footer {
   padding: 0 0 60px;
   opacity: 0;
-  animation: fadeIn 0.8s ease 0.7s forwards;
+  animation: fadeIn 0.8s ease 0.8s forwards;
 }
 
 footer p {
@@ -403,25 +496,12 @@ footer a:hover {
 
   <div class="tools">
 
-    <!-- Little Agents -->
-    <a href="https://littleagents.sam.ink" class="card card--agents" target="_blank" rel="noopener">
-      <div class="card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-      <div class="card-name">little agents</div>
-      <div class="card-title">Tmux session manager for Claude Code</div>
-      <div class="card-desc">Manage multiple agents, track token quotas, and stay in flow. A lightweight TUI that keeps your Claude sessions organized.</div>
-      <div class="card--agents-term">
-        <span class="g">q)</span> hyper <span class="d">[hyper]</span> <span class="y">thinking</span>&nbsp;&nbsp;&nbsp;<span class="g">w)</span> api <span class="d">[api]</span> <span class="g">waiting</span>
-      </div>
-    </a>
-
     <!-- Little Invite -->
     <a href="https://littleinvite.com" class="card card--invite" target="_blank" rel="noopener">
       <div class="card-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
       </div>
-      <div class="card-name">Little Invite</div>
+      <div class="card-name">Little Invite <span class="tag tag--prod">Prod</span></div>
       <div class="card-title">Get people together</div>
       <div class="card-desc">One link. Everyone RSVPs. Nobody forgets. Event invitations that actually work, with calendars, photos, and real-time updates.</div>
       <div class="card--invite-chips">
@@ -431,14 +511,41 @@ footer a:hover {
       </div>
     </a>
 
+    <!-- Little Agents -->
+    <a href="https://littleagents.sam.ink" class="card card--agents" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">little agents <span class="tag tag--prod">Prod</span></div>
+      <div class="card-title">Tmux session manager for Claude Code</div>
+      <div class="card-desc">Manage multiple agents, track token quotas, and stay in flow. A lightweight TUI that keeps your Claude sessions organized.</div>
+      <div class="card--agents-term">
+        <span class="g">q)</span> hyper <span class="d">[hyper]</span> <span class="y">thinking</span>&nbsp;&nbsp;&nbsp;<span class="g">w)</span> api <span class="d">[api]</span> <span class="g">waiting</span>
+      </div>
+    </a>
+
     <!-- Heated Social Club -->
     <a href="https://heatedsocialclub.com" class="card card--hsc" target="_blank" rel="noopener">
       <div class="card-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
       </div>
-      <div class="card-name">Heated Social Club</div>
+      <div class="card-name">Heated Social Club <span class="tag tag--dev">Dev</span></div>
       <div class="card-title">Your kitchen, on the record</div>
       <div class="card-desc">Log meals, track your cooking streaks, and see what your friends are making. A social cooking tracker for home cooks.</div>
+    </a>
+
+    <!-- Map in Bio -->
+    <a href="https://mapin.bio" class="card card--map" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">Map in Bio <span class="tag tag--dev">Dev</span></div>
+      <div class="card-title">All your posts, mapped</div>
+      <div class="card-desc">Turn your social media posts into interactive, location-based maps. Sync Instagram and TikTok, track engagement, guide your audience.</div>
+      <div class="card--map-pin">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Instagram &middot; TikTok &middot; Analytics
+      </div>
     </a>
 
   </div>
