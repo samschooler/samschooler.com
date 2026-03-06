@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sam Schooler — Tools</title>
+<meta name="description" content="Small, opinionated tools by Sam Schooler.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400;500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0c0c0e;
+  --bg-raised: #141416;
+  --text: #e8e8ec;
+  --text-dim: #8a8a96;
+  --text-muted: #55555f;
+  --border: #222228;
+  --serif: 'Fraunces', serif;
+  --mono: 'DM Mono', monospace;
+  --nunito: 'Nunito', sans-serif;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ─── HEADER ─── */
+header {
+  padding: 100px 0 20px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.1s forwards;
+}
+
+header p.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 44px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+header h1 em {
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* ─── TOOLS GRID ─── */
+.tools {
+  padding: 48px 0 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── CARD BASE ─── */
+.card {
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 32px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.25s; }
+.card:nth-child(2) { animation-delay: 0.4s; }
+.card:nth-child(3) { animation-delay: 0.55s; }
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-name {
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: clamp(22px, 3.5vw, 28px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.card-desc {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.card-arrow {
+  position: absolute;
+  top: 36px;
+  right: 32px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover .card-arrow {
+  transform: translate(3px, -3px);
+}
+
+.card-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ─── LITTLE AGENTS ─── */
+.card--agents {
+  background: #0d1210;
+  border: 1px solid #1a2e22;
+  font-family: var(--mono);
+}
+
+.card--agents::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(34,197,94,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.card--agents .card-name {
+  color: #22c55e;
+}
+
+.card--agents .card-name::before {
+  content: '~';
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.card--agents .card-title {
+  color: #e4e4e7;
+  font-family: var(--mono);
+  font-weight: 400;
+}
+
+.card--agents .card-desc {
+  color: #71717a;
+}
+
+.card--agents .card-arrow {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.2);
+}
+
+.card--agents .card-arrow svg {
+  stroke: #22c55e;
+}
+
+.card--agents:hover {
+  border-color: #22c55e30;
+  box-shadow: 0 8px 40px rgba(34,197,94,0.06);
+}
+
+/* Terminal decoration */
+.card--agents-term {
+  margin-top: 20px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: #52525b;
+  border-top: 1px solid #1a2e22;
+  padding-top: 16px;
+}
+
+.card--agents-term .g { color: #22c55e; }
+.card--agents-term .y { color: #f59e0b; }
+.card--agents-term .d { color: #3f3f46; }
+
+/* ─── LITTLE INVITE ─── */
+.card--invite {
+  background: linear-gradient(135deg, #0e1318, #101820);
+  border: 1px solid #1c2a36;
+  font-family: var(--nunito);
+}
+
+.card--invite::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(6,182,212,0.07), transparent 70%);
+  pointer-events: none;
+}
+
+.card--invite .card-name {
+  color: #22d3ee;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.card--invite .card-title {
+  color: #f0f0f4;
+  font-family: var(--nunito);
+  font-weight: 700;
+}
+
+.card--invite .card-desc {
+  color: #7e8ea0;
+  font-family: var(--nunito);
+}
+
+.card--invite .card-arrow {
+  background: rgba(6,182,212,0.1);
+  border: 1px solid rgba(6,182,212,0.2);
+}
+
+.card--invite .card-arrow svg {
+  stroke: #22d3ee;
+}
+
+.card--invite:hover {
+  border-color: #22d3ee30;
+  box-shadow: 0 8px 40px rgba(6,182,212,0.06);
+}
+
+/* RSVP chip decoration */
+.card--invite-chips {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--nunito);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(6,182,212,0.08);
+  color: #22d3ee;
+  border: 1px solid rgba(6,182,212,0.15);
+}
+
+/* ─── HEADED SOCIAL CLUB ─── */
+.card--hsc {
+  background: linear-gradient(135deg, #14120e, #181510);
+  border: 1px solid #2e2a1e;
+  font-family: var(--serif);
+}
+
+.card--hsc::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 400px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(251,191,36,0.05), transparent 70%);
+  pointer-events: none;
+}
+
+.card--hsc .card-name {
+  color: #fbbf24;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card--hsc .card-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  color: #f5f0e0;
+  font-size: clamp(24px, 3.5vw, 30px);
+}
+
+.card--hsc .card-desc {
+  color: #8a8070;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.card--hsc .card-arrow {
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.18);
+}
+
+.card--hsc .card-arrow svg {
+  stroke: #fbbf24;
+}
+
+.card--hsc:hover {
+  border-color: #fbbf2430;
+  box-shadow: 0 8px 40px rgba(251,191,36,0.05);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 0 0 60px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.7s forwards;
+}
+
+footer p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: var(--text);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  header { padding: 72px 0 16px; }
+  .card { padding: 28px 24px; }
+  .card-arrow { top: 28px; right: 24px; }
+  .tools { padding: 36px 0 80px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <p class="label">sam schooler</p>
+    <h1>Small tools I've built <em>for myself</em><br>and anyone else who wants them.</h1>
+  </header>
+
+  <div class="tools">
+
+    <!-- Little Agents -->
+    <a href="https://littleagents.sam.ink" class="card card--agents" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">little agents</div>
+      <div class="card-title">Tmux session manager for Claude Code</div>
+      <div class="card-desc">Manage multiple agents, track token quotas, and stay in flow. A lightweight TUI that keeps your Claude sessions organized.</div>
+      <div class="card--agents-term">
+        <span class="g">q)</span> hyper <span class="d">[hyper]</span> <span class="y">thinking</span>&nbsp;&nbsp;&nbsp;<span class="g">w)</span> api <span class="d">[api]</span> <span class="g">waiting</span>
+      </div>
+    </a>
+
+    <!-- Little Invite -->
+    <a href="https://littleinvite.com" class="card card--invite" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">Little Invite</div>
+      <div class="card-title">Get people together</div>
+      <div class="card-desc">One link. Everyone RSVPs. Nobody forgets. Event invitations that actually work, with calendars, photos, and real-time updates.</div>
+      <div class="card--invite-chips">
+        <span class="chip">RSVP</span>
+        <span class="chip">Calendar</span>
+        <span class="chip">Photos</span>
+      </div>
+    </a>
+
+    <!-- Headed Social Club -->
+    <a href="https://headedsocialclub.com" class="card card--hsc" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">Headed Social Club</div>
+      <div class="card-title">Where are we headed?</div>
+      <div class="card-desc">A social club for planning what's next.</div>
+    </a>
+
+  </div>
+
+  <footer>
+    <p><a href="mailto:sam@sam.ink">sam@sam.ink</a></p>
+  </footer>
+
+</div>
+
+</body>
+</html>
