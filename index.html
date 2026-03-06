@@ -110,6 +110,7 @@ header h1 em {
 .card:nth-child(2) { animation-delay: 0.4s; }
 .card:nth-child(3) { animation-delay: 0.55s; }
 .card:nth-child(4) { animation-delay: 0.7s; }
+.card:nth-child(5) { animation-delay: 0.85s; }
 
 .card:hover {
   transform: translateY(-3px);
@@ -442,6 +443,67 @@ header h1 em {
   flex-shrink: 0;
 }
 
+/* ─── MARCO ─── */
+.card--marco {
+  background: linear-gradient(135deg, #0a0f1a, #0e1520);
+  border: 1px solid #1a2540;
+  font-family: var(--nunito);
+}
+
+.card--marco::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 350px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(56,189,148,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.card--marco .card-name {
+  color: #38bd94;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.card--marco .card-title {
+  color: #f0f0f4;
+  font-family: var(--nunito);
+  font-weight: 700;
+}
+
+.card--marco .card-desc {
+  color: #7e8ea0;
+  font-family: var(--nunito);
+}
+
+.card--marco .card-arrow {
+  background: rgba(56,189,148,0.1);
+  border: 1px solid rgba(56,189,148,0.2);
+}
+
+.card--marco .card-arrow svg {
+  stroke: #38bd94;
+}
+
+.card--marco:hover {
+  border-color: #38bd9430;
+  box-shadow: 0 8px 40px rgba(56,189,148,0.06);
+}
+
+.card--marco-coord {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #3a5060;
+  border-top: 1px solid #1a2540;
+  padding-top: 14px;
+  letter-spacing: 0.03em;
+}
+
+.card--marco-coord .accent { color: #38bd94; }
+
 /* ─── FOOTER ─── */
 footer {
   padding: 0 0 60px;
@@ -546,6 +608,17 @@ footer a:hover {
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
         Instagram &middot; TikTok &middot; Analytics
       </div>
+    </a>
+
+    <!-- Marco -->
+    <a href="https://marco.im" class="card card--marco" target="_blank" rel="noopener">
+      <div class="card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+      <div class="card-name">Marco <span class="tag tag--dev">Dev</span></div>
+      <div class="card-title">One map. Every adventure.</div>
+      <div class="card-desc">All your activities, photos, restaurants, and trails on a single map. Syncs with Strava, Instagram, AllTrails, and more.</div>
+      <div class="card--marco-coord"><span class="accent">39.7392</span>° N, <span class="accent">104.9903</span>° W</div>
     </a>
 
   </div>
